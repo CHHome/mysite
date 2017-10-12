@@ -12,8 +12,11 @@ def login(request):
     if request.method == 'GET':
         username = request.GET.get('username')
         password = request.GET.get('password')
-        p = models.UserInfo.objects.create(username=username, password=password)
-        p.save()
+        models.UserInfo.objects.create(username=username, password=password)
         user_list = models.UserInfo.objects.all()
         return HttpResponse(len(user_list))
-# Create your views here.
+
+def show(request):
+    if request.method == 'GET':
+        user = models.UserInfo.objects.order_by('id')
+        return HttpResponse(len(user))
